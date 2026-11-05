@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potgieter Auto | Premium Vehicle Showroom</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased">
+
+    <!-- Top Bar / Social Links -->
+    <header class="bg-black border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl font-black tracking-wider text-amber-500 uppercase">Potgieter Auto</span>
+            </div>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="https://www.instagram.com/potgieter_auto/" target="_blank" class="hover:text-amber-400 transition flex items-center gap-2">
+                    <i class="fa-brands fa-instagram text-lg text-pink-500"></i> Instagram
+                </a>
+                <a href="https://www.tiktok.com/@potgieter_auto?lang=en" target="_blank" class="hover:text-amber-400 transition flex items-center gap-2">
+                    <i class="fa-brands fa-tiktok text-lg text-cyan-400"></i> TikTok
+                </a>
+                <a href="#contact" class="bg-amber-500 text-black font-semibold px-4 py-2 rounded-lg hover:bg-amber-400 transition">
+                    Enquire Now
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-gray-900 to-black py-24 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+                Drive Your Dream With <span class="text-amber-500">Potgieter Auto</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+                Specializing in premium crossovers, SUVs, and high-demand vehicles from Omoda, Jaecoo, BYD, Volkswagen, Ford, and more. Backed by seamless financing.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#inventory" class="bg-amber-500 text-black font-bold px-8 py-3 rounded-xl hover:bg-amber-400 transition">Browse Inventory</a>
+                <a href="#calculator" class="bg-gray-800 border border-gray-700 font-bold px-8 py-3 rounded-xl hover:bg-gray-700 transition">Finance Calculator</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inventory Filter & Grid -->
+    <main id="inventory" class="max-w-7xl mx-auto px-4 py-16">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-4">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight">Current Showroom Stock</h2>
+                <p class="text-gray-400 text-sm mt-1">Hand-picked premium selection ready for delivery.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterStock('all')" class="px-4 py-2 bg-amber-500 text-black font-semibold rounded-lg text-sm transition">All Brands</button>
+                <button onclick="filterStock('Omoda & Jaecoo')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition">Omoda / Jaecoo</button>
+                <button onclick="filterStock('BYD')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition">BYD</button>
+                <button onclick="filterStock('VW & Ford')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition">VW & Ford</button>
+                <button onclick="filterStock('Other')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition">Audi, Mahindra, MG, Geely</button>
+            </div>
+        </div>
+
+        <!-- Vehicle Grid -->
+        <div id="vehicle-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cards will inject dynamically via JS -->
+        </div>
+    </main>
+
+    <!-- Finance Calculator Section -->
+    <section id="calculator" class="bg-gray-900 border-t border-b border-gray-800 py-16">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-2 text-center">Instalment Estimator</h2>
+            <p class="text-gray-400 text-center mb-8 text-sm">Calculate your monthly finance breakdown instantly.</p>
+            
+            <div class="bg-black border border-gray-800 p-8 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Vehicle Price (R)</label>
+                        <input type="number" id="calc-price" value="450000" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500" oninput="calculateFinance()">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Deposit (R)</label>
+                        <input type="number" id="calc-deposit" value="45000" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500" oninput="calculateFinance()">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Term (Months)</label>
+                            <select id="calc-term" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500" onchange="calculateFinance()">
+                                <option value="60">60 Months</option>
+                                <option value="72" selected>72 Months</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Interest Rate (%)</label>
+                            <input type="number" id="calc-rate" value="11.75" step="0.25" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500" oninput="calculateFinance()">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-between bg-gray-950 p-6 rounded-xl border border-gray-800">
+                    <div>
+                        <h3 class="text-sm uppercase tracking-wider text-gray-400 mb-2">Estimated Monthly Payment</h3>
+                        <div id="monthly-result" class="text-4xl font-black text-amber-500 mb-4">R 7,850 <span class="text-sm font-normal text-gray-400">p/m</span></div>
+                        <p class="text-xs text-gray-500">*Estimated calculation excluding initiation and monthly service fees. Subject to bank approval.</p>
+                    </div>
+                    <a href="#contact" class="mt-6 block text-center bg-amber-500 text-black font-bold py-3 rounded-lg hover:bg-amber-400 transition">Apply For Finance</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form / Contact Section -->
+    <section id="contact" class="max-w-3xl mx-auto px-4 py-20">
+        <div class="bg-gray-900 border border-gray-800 p-8 rounded-2xl">
+            <h2 class="text-3xl font-bold mb-2 text-center">Get in Touch with Potgieter Auto</h2>
+            <p class="text-gray-400 text-center mb-8 text-sm">Fill out your details below and our sales team will get back to you immediately.</p>
+            
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Full Name" required class="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                    <input type="tel" placeholder="Phone Number" required class="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                </div>
+                <input type="email" placeholder="Email Address" required class="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                <select class="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                    <option>Select Vehicle of Interest</option>
+                    <option>Jaecoo J7</option>
+                    <option>Omoda C5</option>
+                    <option>BYD Sealion 6</option>
+                    <option>Volkswagen Polo / Golf</option>
+                    <option>Ford Ranger / Everest</option>
+                    <option>Mahindra / Audi / MG / Geely</option>
+                </select>
+                <textarea rows="4" placeholder="Message or specific requirements..." class="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500"></textarea>
+                <button type="submit" class="w-full bg-amber-500 text-black font-bold py-3 rounded-lg hover:bg-amber-400 transition">Submit Enquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-900 py-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2026 Potgieter Auto Holdings (Pty) Ltd. All rights reserved.</p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://www.instagram.com/potgieter_auto/" target="_blank" class="hover:text-amber-400"><i class="fa-brands fa-instagram"></i> Instagram</a>
+            <a href="https://www.tiktok.com/@potgieter_auto?lang=en" target="_blank" class="hover:text-amber-400"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Dynamic Inventory & Calculator -->
+    <script>
+        const inventoryData = [
+            { id: 1, name: "2026 Jaecoo J7 1.6T Glacier", category: "Omoda & Jaecoo", price: "R 519,900", img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80", specs: "Automatic • Petrol • 1,500 km" },
+            { id: 2, name: "2026 Omoda C5 1.5T Elegance", category: "Omoda & Jaecoo", price: "R 465,900", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80", specs: "Automatic • Petrol • New" },
+            { id: 3, name: "2026 BYD Sealion 6 DM-i", category: "BYD", price: "R 641,900", img: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80", specs: "Plug-in Hybrid • Automatic • New" },
+            { id: 4, name: "2025 Volkswagen Polo GTI", category: "VW & Ford", price: "R 429,900", img: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80", specs: "DSG • Petrol • 18,000 km" },
+            { id: 5, name: "2024 Ford Ranger Wildtrak 4x4", category: "VW & Ford", price: "R 789,900", img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80", specs: "10-Speed Auto • Diesel • 32,000 km" },
+            { id: 6, name: "2025 Audi Q3 35 TFSI", category: "Other", price: "R 619,900", img: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=600&q=80", specs: "Automatic • Petrol • 12,000 km" },
+            { id: 7, name: "2025 Mahindra Scorpio-N 2.2D", category: "Other", price: "R 419,900", img: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=600&q=80", specs: "4x4 • Diesel • Automatic" },
+            { id: 8, name: "2026 MG ZS Trophy", category: "Other", price: "R 379,900", img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80", specs: "Automatic • Petrol • New" },
+            { id: 9, name: "2025 Geely Coolray EX", category: "Other", price: "R 399,900", img: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80", specs: "Automatic • Petrol • Demo" }
+        ];
+
+        function renderStock(filter) {
+            const grid = document.getElementById('vehicle-grid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? inventoryData : inventoryData.filter(v => v.category === filter);
+            
+            filtered.forEach(car => {
+                grid.innerHTML += `
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-amber-500/50 transition flex flex-col justify-between">
+                        <div>
+                            <img src="${car.img}" alt="${car.name}" class="w-full h-52 object-cover">
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider">${car.category}</span>
+                                <h3 class="text-xl font-bold mt-1 mb-2">${car.name}</h3>
+                                <p class="text-gray-400 text-sm mb-4">${car.specs}</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-800/60 mt-4">
+                            <span class="text-2xl font-black text-white">${car.price}</span>
+                            <a href="#contact" class="bg-gray-800 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-lg text-sm font-semibold transition">Enquire</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterStock(category) {
+            renderStock(category);
+        }
+
+        function calculateFinance() {
+            const price = parseFloat(document.getElementById('calc-price').value) || 0;
+            const deposit = parseFloat(document.getElementById('calc-deposit').value) || 0;
+            const term = parseInt(document.getElementById('calc-term').value) || 72;
+            const annualRate = parseFloat(document.getElementById('calc-rate').value) || 11.75;
+            
+            const principal = price - deposit;
+            const monthlyRate = (annualRate / 100) / 12;
+            
+            let monthly = 0;
+            if (monthlyRate === 0) {
+                monthly = principal / term;
+            } else {
+                monthly = (principal * monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+            }
+            
+            document.getElementById('monthly-result').innerHTML = `R ${Math.round(monthly).toLocaleString()} <span class="text-sm font-normal text-gray-400">p/m</span>`;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert('Thank you! Your enquiry has been received by Potgieter Auto. Our team will contact you shortly.');
+            e.target.reset();
+        }
+
+        // Initialize grid on load
+        renderStock('all');
+        calculateFinance();
+    </script>
+</body>
+</html>

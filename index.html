@@ -211,20 +211,9 @@
         async function handleFormSubmit(e) {
             e.preventDefault();
             
-            // Format phone number to strictly match WhatsApp format (27XXXXXXXXX)
-            let rawPhone = e.target.querySelector('input[placeholder="Phone Number"]').value;
-            let cleanPhone = rawPhone.replace(/\D/g, ''); // Strip out all spaces, dashes, and plus symbols
-            
-            // Convert leading 0 to 27, or prepend 27 if it's missing entirely
-            if (cleanPhone.startsWith('0')) {
-                cleanPhone = '27' + cleanPhone.substring(1);
-            } else if (!cleanPhone.startsWith('27')) {
-                cleanPhone = '27' + cleanPhone;
-            }
-
             const formData = {
                 name: e.target.querySelector('input[placeholder="Full Name"]').value,
-                phone: cleanPhone,
+                phone: e.target.querySelector('input[placeholder="Phone Number"]').value,
                 email: e.target.querySelector('input[placeholder="Email Address"]').value,
                 vehicle: e.target.querySelector('select').value,
                 message: e.target.querySelector('textarea').value,

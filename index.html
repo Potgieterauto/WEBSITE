@@ -145,7 +145,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Dynamic Inventory & Calculator -->
+    <!-- JavaScript for Dynamic Inventory, Calculator & CRM Integration -->
     <script>
         const inventoryData = [
             { id: 1, name: "2026 Jaecoo J7 1.6T Glacier", category: "Omoda & Jaecoo", price: "R 519,900", img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80", specs: "Automatic • Petrol • 1,500 km" },
@@ -208,10 +208,37 @@
             document.getElementById('monthly-result').innerHTML = `R ${Math.round(monthly).toLocaleString()} <span class="text-sm font-normal text-gray-400">p/m</span>`;
         }
 
-        function handleFormSubmit(e) {
+        async function handleFormSubmit(e) {
             e.preventDefault();
-            alert('Thank you! Your enquiry has been received by Potgieter Auto. Our team will contact you shortly.');
-            e.target.reset();
+            
+            const formData = {
+                name: e.target.querySelector('input[placeholder="Full Name"]').value,
+                phone: e.target.querySelector('input[placeholder="Phone Number"]').value,
+                email: e.target.querySelector('input[placeholder="Email Address"]').value,
+                vehicle: e.target.querySelector('select').value,
+                message: e.target.querySelector('textarea').value,
+                tier: 'Warm'
+            };
+
+            try {
+                const response = await fetch('https://whatsapp-webhook-fp3x.onrender.com/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert('Thank you! Your enquiry has been received by Potgieter Auto. Our team will contact you shortly.');
+                    e.target.reset();
+                } else {
+                    alert('Something went wrong. Please try messaging us directly via WhatsApp.');
+                }
+            } catch (error) {
+                console.error('Error submitting lead:', error);
+                alert('Network error. Please check your connection and try again.');
+            }
         }
 
         // Initialize grid on load
